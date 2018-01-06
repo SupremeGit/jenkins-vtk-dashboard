@@ -1,0 +1,20 @@
+
+properties([
+  parameters([
+       string(defaultValue: "Experimental",                    description: "Continuous|Nightly|Experimental", name: 'buildModel'),
+       string(defaultValue: "f27-nvidia-jenkins-custom",       description: 'Build name visible in dashboard', name: 'buildName'),
+
+       booleanParam(defaultValue: true,  description: 'Build VTK (true), or dashboard (false).', name: 'Custom'),
+       //string(defaultValue: ":0",      description: "X display to run tests on.",              name: 'xDisplay'),
+
+       booleanParam(defaultValue: false, description: 'Debug mode.',       name: 'Debug'),
+
+       booleanParam(defaultValue: false, description: 'Clean build tree.',                                          name: 'cleanBuild'),
+       string(defaultValue: "jenkins",   description: "Name of build subdirectory (default=username).",             name: 'buildDir'),
+       string(defaultValue: "-j6",       description: "Build flags, eg no. of cores to build on. Default \"-j6\".", name: 'buildFlags')
+   ])
+])
+
+def pipelinefile = readTrusted('pipeline.groovy')
+evaluate pipelinefile
+

@@ -1,0 +1,24 @@
+
+properties([
+  parameters([
+       string(defaultValue: "Experimental",                    description: "Continuous|Nightly|Experimental", name: 'buildModel'),
+       string(defaultValue: "f27-nvidia-jenkins-multibranch",  description: 'Build name visible in dashboard', name: 'buildName'),
+
+       booleanParam(defaultValue: true,  description: 'Execute tests.',              name: 'runTests'),
+       string(defaultValue: ":0",        description: "X display to run tests on.",  name: 'xDisplay'),
+
+       booleanParam(defaultValue: false, description: 'Debug mode.',                 name: 'Debug'),
+
+       booleanParam(defaultValue: true,  description: 'Clean build tree.',                                          name: 'cleanBuild'),
+       string(defaultValue: "jenkins",   description: "Name of build subdirectory (default=username).",             name: 'buildDir'),
+       string(defaultValue: "-j6",       description: "Build flags, eg no. of cores to build on. Default \"-j6\".", name: 'buildFlags'),
+
+       string(defaultValue: "il-duce.homunculoid.com",       description: 'Site name visible in dashboard', name: 'siteName'),
+       string(defaultValue: "homunculoid.com",               description: 'Drop site.',                     name: 'dropSite'),
+       string(defaultValue: "/CDash/submit.php?project=VTK", description: 'Drop location.',                 name: 'dropLocation')
+   ])
+])
+
+def pipelinefile = readTrusted('pipeline.groovy')
+evaluate pipelinefile
+
